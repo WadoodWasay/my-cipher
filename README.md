@@ -20,7 +20,7 @@ DHNC is a custom encryption algorithm that uses a dynamic set of secret special 
    - Following them with the current terminator token.
    - Sprinkling noise tokens randomly.
 5. The receiver decrypts the special token set using their private key, then:
-   - Counts special tokens until each terminator.
+   - Counts special tokens until each terminator, ignoring any noise tokens in between, before, or after special tokens.
    - Converts counts back to plaintext letters.
 
 ## Getting Started
