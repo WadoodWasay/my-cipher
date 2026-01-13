@@ -1,5 +1,5 @@
-# DHNC
-Dynamic Homophonic Noise Cipher (DHNC)
+# My Cipher
+This cipher is one designed by me. Name in progress. 
 ## Overview
 DHNC is a custom encryption algorithm that uses a dynamic set of secret special tokens, cycling terminators, and random noise injection to encrypt plaintext messages. The design enhances security through obfuscation and homophonic substitution, while keeping the key exchange secure using public key cryptography.
 
