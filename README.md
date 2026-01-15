@@ -14,6 +14,19 @@ As counting only starts from the first count token, any number of terminator or 
 
 There's also the possibility of setting the more frequently used letters to higher number values and less frequently used ones to lower number values to ensure that messages are longer and more likely to be of similar lengths. This combined with adding even more noise tokens to make shorter messages appear longer would increase the effectiveness of this cypher, and reduce the length leakage weakness discussed bellow. 
 
+### Encoding and Decoding processes
+#### Encoding Process
+To encode a character with value N:
+- Emit N count tokens (selected randomly from the count token set)
+- Optionally intersperse noise tokens between count tokens
+- Emit a terminator token
+
+#### Decoding Process
+- Scan the ciphertext left to right
+- Increment a counter for each count token
+- On terminator: map counter → character, reset counter
+- Ignore noise tokens entirely
+
 ### Example 
 Now let us work through the example stated above. The character 'b' can be encoded in the following ways, note that this is not an exhaustive list, and only meant to illustrate and clarify my explanation of the cypher given above: 
 - WvkBy
@@ -41,9 +54,55 @@ Now let us work through the example stated above. The character 'b' can be encod
   cd my-cipher
 ```
 
-### Usage
+## Mapping Modes 
+#### Random 
+Shuffled character to value assignment 
+- Use for maximum key entropy 
+#### Simple
+Sequential, A=1, a=2, B=3, ...
+- Use for debugging 
+#### Frequency 
+Common letters (e, t, a, ...) get high values
+- Use to normalize message length 
+#### Frequency-inv
+Common letters get low values 
+- Shorter average messages (why would you ever use this)
+
+## Usage
 Help command
 ```bash
 python3 cipher.py -h
 ```
+Generate a key
+```bash 
+python3 cipher.py keygen -o <key_file-name>.json
+```
 
+Options:
+- `--mapping` — Character vaue mapping mode (default: `random`)
+  - `random`: Shuffled mapping (recommended)
+  - `default`: Sequential A=1, a=2, B=3...
+  - `frequency`: Common letters get high values (normalizes length)
+  - `frequency-inv`: Common letters get low values
+- `--count-ratio` — Proportion of chars as count tokens (default: 0.4)
+- `--term-ratio` — Proportion as terminator tokens (default: 0.2)
+- `--seed` — Random seed for reproducible key generation
+
+### Encode a Message
+```bash
+python tally_cipher.py encode "Your message here" -k <key_file-name>.json
+```
+
+### Decode a Message
+```bash
+python tally_cipher.py decode "ciphertext_here" -k <key_file-name>.json
+```
+
+### Inspect a Key
+```bash
+python tally_cipher.py showkey -k <key_file-name>.json
+```
+
+Options:
+- `--noise` — Probability of inserting noise between counts (default: 0.3)
+- `--seed` — Random seed for reproducible encoding
