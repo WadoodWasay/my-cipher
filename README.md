@@ -1,5 +1,5 @@
 # My Cipher
-This cipher is one designed by me. Name in progress. 
+A symetric cipher designed by me. Name in progress. 
 ## Overview
 This is a custom encryption algorithm that uses a dynamic set of secret special tokens, cycling terminators, and random noise injection to encrypt plaintext messages.
 
