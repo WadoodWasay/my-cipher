@@ -1,7 +1,7 @@
 # My Cipher
 This cipher is one designed by me. Name in progress. 
 ## Overview
-DHNC is a custom encryption algorithm that uses a dynamic set of secret special tokens, cycling terminators, and random noise injection to encrypt plaintext messages.
+This is a custom encryption algorithm that uses a dynamic set of secret special tokens, cycling terminators, and random noise injection to encrypt plaintext messages.
 
 ## How it works
 The alphabet is divided into uppercase and lowercase characters, and each character is given a number. This can be any number, as long as no letters share a corresponding number value. For this example (and for simplicity purposes) the letters and their corresponding numbers are in order.
